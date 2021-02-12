@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Order_Review" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.5.0">
+  <decision id="Decision_0tgwupa" name="responsibleParty">
+    <decisionTable id="DecisionTable_0sgrwhs" hitPolicy="COLLECT">
+      <input id="Input_1" label="category" camunda:inputVariable="category">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_15zqbyx" label="value" biodi:width="192" camunda:inputVariable="value">
+        <inputExpression id="LiteralExpression_119f9pa" typeRef="integer">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="responsibleParty" name="responsibleParty" typeRef="string" biodi:width="253" />
+      <rule id="DecisionRule_0mscdm0">
+        <description>Day to day business</description>
+        <inputEntry id="UnaryTests_0nts1pa">
+          <text>"New_Car"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ldihdj">
+          <text>&lt; 25000</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0k6q1zd">
+          <text>"Sales"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1aevt0s">
+        <description>Fraud with spare parts is likely</description>
+        <inputEntry id="UnaryTests_1837twy">
+          <text>"Spare_Parts"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0wnzo3b">
+          <text>&lt; 2000</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0o5xd2w">
+          <text>"Sales"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_09k7mp3">
+        <description>Experts can assess spare parts</description>
+        <inputEntry id="UnaryTests_0c3or38">
+          <text>"Spare_Parts"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06ygngo">
+          <text>&lt; 25000</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_05jgvqb">
+          <text>"Mechanical Engineering Experts"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1dipo7h">
+        <description>Pre-owned cars can always be bought</description>
+        <inputEntry id="UnaryTests_03oz48h">
+          <text>"Pre-owned_Car"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qjb0ll">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ja5szd">
+          <text>"Sales"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0pvsw45">
+        <description>Managemant can decide everything, but only the big cases</description>
+        <inputEntry id="UnaryTests_1kkq6ik">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09mjkpv">
+          <text>&gt;= 5000</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0j7jj3c">
+          <text>"Management"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="Decision_0tgwupa">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

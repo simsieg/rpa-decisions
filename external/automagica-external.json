@@ -1,0 +1,57 @@
+{
+    "nodes": [
+        {
+            "uid": "vKI5",
+            "x": 600,
+            "y": 100,
+            "type": "ActivityNode",
+            "next_node": null,
+            "label": "Notify responsible parties via email",
+            "activity": "automagica.activities.print_console",
+            "args": {
+                "data": "\"Responsible parties: \" + str(result)"
+            },
+            "class": null,
+            "return_": null,
+            "on_exception_node": null
+        },
+        {
+            "uid": "GC4m",
+            "x": 0,
+            "y": 100,
+            "type": "StartNode",
+            "next_node": "yPma",
+            "label": null
+        },
+        {
+            "uid": "yPma",
+            "x": 200,
+            "y": 100,
+            "type": "PythonCodeNode",
+            "next_node": "u5Kf",
+            "code": "import random\n\nvalue = random.choice([1, 100, 1000, 2400, 2600, 4000, 10000, 100000])\ncategory = random.choice([\"Spare_Parts\", \"New_Car\", \"Pre-owned_Car\"])\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+            "on_exception_node": null,
+            "label": "Parse order data from email"
+        },
+        {
+            "uid": "u5Kf",
+            "x": 400,
+            "y": 100,
+            "type": "ActivityNode",
+            "next_node": "vKI5",
+            "label": "Decide on responsible party",
+            "activity": "automagica.activities.camunda_decision_engine",
+            "args": {
+                "camunda_engine_URL": "\"http://localhost:8080/engine-rest/\"",
+                "decision_key": "\"Decision_0tgwupa\"",
+                "variable_names": "[\"category\", \"value\"]",
+                "variable_values": "[category, value]",
+                "output_variable_name": "\"responsibleParty\""
+            },
+            "class": null,
+            "return_": "result",
+            "on_exception_node": null
+        }
+    ],
+    "name": "Unnamed Flow"
+}

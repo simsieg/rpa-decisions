@@ -1,0 +1,203 @@
+{
+    "nodes": [
+        {
+            "uid": "GC4m",
+            "x": 0,
+            "y": 100,
+            "type": "StartNode",
+            "next_node": "yPma",
+            "label": null
+        },
+        {
+            "uid": "yPma",
+            "x": 0,
+            "y": 200,
+            "type": "PythonCodeNode",
+            "next_node": "idjW",
+            "code": "import random\n\nvalue = random.choice([1, 100, 1000, 2400, 2600, 4000, 10000, 100000])\ncategory = random.choice([\"Spare Parts\", \"New Car\", \"Pre-owned Car\"])\n\nprint(\"Parsed value\", value, \"; category:\", category)\n\n\n\n\n\n\n\n",
+            "on_exception_node": null,
+            "label": "Parse order data from email"
+        },
+        {
+            "uid": "idjW",
+            "x": 0,
+            "y": 300,
+            "type": "IfElseNode",
+            "next_node": "q1gM",
+            "else_node": "yBkr",
+            "label": "category == \"New Car\" and value < 5000",
+            "condition": "category == \"New Car\" and value < 5000"
+        },
+        {
+            "uid": "TCN1",
+            "x": 875,
+            "y": 100,
+            "type": "ActivityNode",
+            "next_node": null,
+            "label": "Notify Sales and Management",
+            "activity": "automagica.activities.print_console",
+            "args": {
+                "data": "\"Sales, Management\""
+            },
+            "class": null,
+            "return_": null,
+            "on_exception_node": null
+        },
+        {
+            "uid": "yBkr",
+            "x": 250,
+            "y": 100,
+            "type": "IfElseNode",
+            "next_node": "TCN1",
+            "else_node": "qddl",
+            "label": "category == \"New Car\" and value < 25000",
+            "condition": "category == \"New Car\" and value < 25000"
+        },
+        {
+            "uid": "q1gM",
+            "x": 0,
+            "y": 425,
+            "type": "ActivityNode",
+            "next_node": null,
+            "label": "Notify Sales",
+            "activity": "automagica.activities.print_console",
+            "args": {
+                "data": "\"Sales\""
+            },
+            "class": null,
+            "return_": null,
+            "on_exception_node": null
+        },
+        {
+            "uid": "UjB1",
+            "x": 400,
+            "y": 200,
+            "type": "IfElseNode",
+            "next_node": "8gbE",
+            "else_node": "EL8v",
+            "label": "category == \"Spare Parts\" and value < 2000",
+            "condition": "category == \"Spare Parts\" and value < 2000"
+        },
+        {
+            "uid": "8gbE",
+            "x": 225,
+            "y": 200,
+            "type": "ActivityNode",
+            "next_node": null,
+            "label": "Notify Sales and Mechanical Engineering Experts",
+            "activity": "automagica.activities.print_console",
+            "args": {
+                "data": "\"Sales, Mechanical Engineering Experts\""
+            },
+            "class": null,
+            "return_": null,
+            "on_exception_node": null
+        },
+        {
+            "uid": "EL8v",
+            "x": 325,
+            "y": 350,
+            "type": "IfElseNode",
+            "next_node": "Qopw",
+            "else_node": "yqxx",
+            "label": "category == \"Spare Parts\" and value < 5000",
+            "condition": "category == \"Spare Parts\" and value < 5000"
+        },
+        {
+            "uid": "Qopw",
+            "x": 150,
+            "y": 350,
+            "type": "ActivityNode",
+            "next_node": null,
+            "label": "Notify Mechanical Engineering Experts",
+            "activity": "automagica.activities.print_console",
+            "args": {
+                "data": "\"Mechanical Engineering Experts\""
+            },
+            "class": null,
+            "return_": null,
+            "on_exception_node": null
+        },
+        {
+            "uid": "yqxx",
+            "x": 500,
+            "y": 350,
+            "type": "IfElseNode",
+            "next_node": "x3kw",
+            "else_node": "PK1D",
+            "label": "category == \"Spare Parts\" and value <= 25000",
+            "condition": "category == \"Spare Parts\" and value <= 25000"
+        },
+        {
+            "uid": "x3kw",
+            "x": 600,
+            "y": 250,
+            "type": "ActivityNode",
+            "next_node": null,
+            "label": "Notify Mechanical Engineering Experts and Management",
+            "activity": "automagica.activities.print_console",
+            "args": {
+                "data": "\"Mechanical Engineering Experts, Management\""
+            },
+            "class": null,
+            "return_": null,
+            "on_exception_node": null
+        },
+        {
+            "uid": "qddl",
+            "x": 600,
+            "y": 150,
+            "type": "IfElseNode",
+            "next_node": "TcPe",
+            "else_node": "UjB1",
+            "label": "category == \"New Car\" and value >= 25000",
+            "condition": "category == \"New Car\" and value >= 25000"
+        },
+        {
+            "uid": "TcPe",
+            "x": 775,
+            "y": 200,
+            "type": "ActivityNode",
+            "next_node": null,
+            "label": "Notify Management",
+            "activity": "automagica.activities.print_console",
+            "args": {
+                "data": "\"Management\""
+            },
+            "class": null,
+            "return_": null,
+            "on_exception_node": null
+        },
+        {
+            "uid": "PK1D",
+            "x": 675,
+            "y": 350,
+            "type": "IfElseNode",
+            "next_node": "TcPe",
+            "else_node": "4Ikr",
+            "label": "category == \"Spare Parts\" and value > 25000",
+            "condition": "category == \"Spare Parts\" and value > 25000"
+        },
+        {
+            "uid": "4Ikr",
+            "x": 875,
+            "y": 425,
+            "type": "IfElseNode",
+            "next_node": "q1gM",
+            "else_node": "dWEO",
+            "label": "category == \"Pre-owned Car\" and value < 5000",
+            "condition": "category == \"Pre-owned Car\" and value < 5000"
+        },
+        {
+            "uid": "dWEO",
+            "x": 875,
+            "y": 300,
+            "type": "IfElseNode",
+            "next_node": "TCN1",
+            "else_node": null,
+            "label": "category == \"Pre-owned Car\" and value >= 5000",
+            "condition": "category == \"Pre-owned Car\" and value >= 5000"
+        }
+    ],
+    "name": "Unnamed Flow"
+}

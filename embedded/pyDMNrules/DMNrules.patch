@@ -1,0 +1,101 @@
+--- DMNrules.py	2021-02-03 14:19:32.598104107 +0100
++++ DMNrules.py	2021-02-03 15:38:00.546876442 +0100
+@@ -1589,51 +1589,53 @@
+                     self.errors = []
+                     return (status, {})
+                 else:
+-                    foundRule = rankedRules[0]
+-                    first = True
+-                    for (variable, result, rank) in self.rules[table][foundRule]['outputs']:
+-                        item = self.glossary[variable]['item']
+-                        if first:
+-                            if variable not in newData['Result']:
+-                                if len(self.decisionTables[table]['hitPolicy']) == 1:
+-                                    newData['Result'][variable] = []
+-                                elif self.decisionTables[table]['hitPolicy'][1] in ['+', '#']:
+-                                    newData['Result'][variable] = 0
+-                                else:
+-                                    newData['Result'][item] = None
+-                            first = False
+-                        retVal = self.sfeel('{} <- {}'.format(item, result))
+-                        thisOutput = self.sfeel('{}'.format(item))
+-                        if isinstance(thisOutput, str):
+-                            if (thisOutput[0] == '"') and (thisOutput[-1] == '"'):
+-                                thisOutput = thisOutput[1:-1]
+-                        if len(self.decisionTables[table]['hitPolicy']) == 1:
+-                            newData['Result'][variable].append(thisOutput)
+-                        elif self.decisionTables[table]['hitPolicy'][1] == '+':
+-                            newData['Result'][variable] += thisOutput
+-                        elif self.decisionTables[table]['hitPolicy'][1] == '<':
+-                            if newData['Result'][variable] is None:
+-                                newData['Result'][variable] = thisOutput
+-                            elif thisOutput < newData['Result'][variable]:
+-                                newData['Result'][variable] = thisOutput
+-                        elif self.decisionTables[table]['hitPolicy'][1] == '>':
+-                            if newData['Result'][variable] is None:
+-                                newData['Result'][variable] = thisOutput
+-                            elif thisOutput > newData['Result'][variable]:
+-                                newData['Result'][variable] = thisOutput
+-                        else:
+-                            newData['Result'][variable] += 1
+-                    ruleId = (self.decisionTables[table]['name'], table, str(self.rules[table][foundRule]['ruleId']))
+-                    if 'annotation' in self.decisionTables[table]:
+-                        for annotation in range(len(self.decisionTables[table]['annotation'])):
+-                            name = self.decisionTables[table]['annotation'][annotation]
+-                            text = self.rules[table][foundRule]['annotation'][annotation]
+-                            annotations.append((name, text))
+-                    newData['Executed Rule'] = ruleId
+-                    if len(decisionAnnotations) > 0:
+-                        newData['DecisionAnnotations'] = decisionAnnotations
+-                    if len(annotations) > 0:
+-                        newData['RuleAnnotations'] = annotations
++                    for rankedRule in rankedRules[1:]:
++                        foundRule = rankedRule
++                        first = True
++                        for (variable, result, rank) in self.rules[table][foundRule]['outputs']:
++                            item = self.glossary[variable]['item']
++                            if first:
++                                if not newData['Result'][variable]:
++                                    if len(self.decisionTables[table]['hitPolicy']) == 1:
++                                        newData['Result'][variable] = []
++                                    elif self.decisionTables[table]['hitPolicy'][1] in ['+', '#']:
++                                        newData['Result'][variable] = 0
++                                    else:
++                                        newData['Result'][item] = None
++                                first = False
++                            retVal = self.sfeel('{} <- {}'.format(item, result))
++                            thisOutput = self.sfeel('{}'.format(item))
++                            if isinstance(thisOutput, str):
++                                if (thisOutput[0] == '"') and (thisOutput[-1] == '"'):
++                                    thisOutput = thisOutput[1:-1]
++                            if len(self.decisionTables[table]['hitPolicy']) == 1:
++                                newData['Result'][variable].append(thisOutput)
++                            elif self.decisionTables[table]['hitPolicy'][1] == '+':
++                                newData['Result'][variable] += thisOutput
++                            elif self.decisionTables[table]['hitPolicy'][1] == '<':
++                                if newData['Result'][variable] is None:
++                                    newData['Result'][variable] = thisOutput
++                                elif thisOutput < newData['Result'][variable]:
++                                    newData['Result'][variable] = thisOutput
++                            elif self.decisionTables[table]['hitPolicy'][1] == '>':
++                                if newData['Result'][variable] is None:
++                                    newData['Result'][variable] = thisOutput
++                                elif thisOutput > newData['Result'][variable]:
++                                    newData['Result'][variable] = thisOutput
++                            else:
++                                newData['Result'][variable] += 1
++                        ruleId = (self.decisionTables[table]['name'], table, str(self.rules[table][foundRule]['ruleId']))
++                        if 'annotation' in self.decisionTables[table]:
++                            for annotation in range(len(self.decisionTables[table]['annotation'])):
++                                name = self.decisionTables[table]['annotation'][annotation]
++                                text = self.rules[table][foundRule]['annotation'][annotation]
++                                annotations.append((name, text))
++                        newData['Executed Rule'] = ruleId
++                        if len(decisionAnnotations) > 0:
++                            newData['DecisionAnnotations'] = decisionAnnotations
++                        if len(annotations) > 0:
++                            newData['RuleAnnotations'] = annotations
++                        
+             elif self.decisionTables[table]['hitPolicy'][0] == 'P':
+                 if len(ranks) == 0:
+                     self.errors.append("No rules matched the input data for decision table '{!s}'".format(table))
