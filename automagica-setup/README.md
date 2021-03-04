@@ -21,13 +21,16 @@ pip install -e .
 
 To adapt Automagica to work with the newly created decision tasks, replace the dist-package activities.py file of your Automagica installation with the patched one avaiable in this repository.
 
-To do so, replace (or similar depending on your system)
+To do so, you need to replace a file.
+Navigate to your Automagica folder:
 
-`/usr/local/lib/python3.8/dist-packages/automagica/activities.py`
+Unix based OS:
+`/usr/local/lib/python3.8/dist-packages/automagica/`
 
-with
+Windows:
+`%LocalAppData%\Automagica\pkgs\automagica`
 
-[`activities.py`](./activities.py)
+Replace your local `activitites.py` the extended version from this repository [`activities.py`](./activities.py).
 
 After this, your Automagica software version can execute new decision tasks.
 
