@@ -39,7 +39,7 @@
             "y": 100,
             "type": "ActivityNode",
             "next_node": "vKI5",
-            "label": "Decide on responsible party",
+            "label": "Request embedded decision engine",
             "activity": "automagica.activities.internal_decision",
             "args": {
                 "path": "\"tables/OrderReview.xlsx\"",
